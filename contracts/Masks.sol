@@ -44,7 +44,8 @@ contract Masks is ERC721, Pausable, AccessControl {
         require(nftCount <= MAX_BUY, "Can only purchase max of 5 per transaction");
         require(msg.value - (nftCount*1 ether) == 0, "Not a round number");
 
-        feeReceiver.call{value:msg.value}("");
+        (bool success, bytes memory data) = feeReceiver.call{value:msg.value}("");
+        require(success, "Transfer failed");
 
         for (uint256 index = 0; index < nftCount; index++) {
             uint256 tokenId = _tokenIdCounter;
