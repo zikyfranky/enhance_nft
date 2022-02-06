@@ -40,7 +40,7 @@ contract Masks is ERC721, Pausable, AccessControl {
 
     function claimMask() public payable whenNotPaused {
         uint256 nftCount = msg.value / pricePerMask;
-        require(nftCount >= 1, "Can only purchase max of 1 per transaction");
+        require(nftCount >= 1, "Can only purchase min of 1 per transaction");
         require(nftCount <= MAX_BUY, "Can only purchase max of 5 per transaction");
         require(msg.value - (nftCount*1 ether) == 0, "Not a round number");
 
